@@ -1,0 +1,4 @@
+D:\a0\mongodb\2.4.9\bin\mongod --dbpath=D:\d0\mogodb\data --logpath=D:\d0\mogodb\logs\mongod.log --install DisplayName= "MongoDB" start= "auto"
+
+net start MongoDB
+net stop MongoDB

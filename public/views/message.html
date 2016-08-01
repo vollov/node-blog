@@ -1,0 +1,19 @@
+<h2>Message Detail</h2>
+
+<div>
+  <label>Full Name</label><div>{{ message.name }}</div>
+</div>
+<div>
+  <label>Email</label><div>{{ message.email }}</div>
+</div>
+<div>
+  <label>Phone</label><div>{{ message.phone }}</div>
+</div>
+<div>
+  <label>Message</label> <div>{{ message.content }}</div>
+</div>
+
+<div >
+	<label>Date</label>
+	<div>{{message.create_date | date:'yyyy-MM-dd (HH)'}}</div>
+</div>

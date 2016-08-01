@@ -1,2 +1,2 @@
 # node-blog
-node based blog system
+node based single user blog system

@@ -1,0 +1,65 @@
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" ng-model="user.username" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" ng-model="user.password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        
+        
+.state('pofile', {
+		url : '/profile',
+		templateUrl : '/views/profile.html',
+		controller : 'MessageCtrl',
+		resolve: {
+			postPromise: ['messageService', function(messageService){
+				return messageService.getAll();
+			}]
+		},
+		data:{
+			requireLogin: true
+		}
+	}).state('message', {
+		url : '/message/:id',
+		templateUrl : '/views/message.html',
+		data:{
+			requireLogin: true
+		},
+		controller : 'MessageDetailCtrl',
+		resolve : {
+			message : ['$stateParams', 'messageService',
+			function($stateParams, messageService) {
+				return messageService.get($stateParams.id);
+			}]
+		}
+	}).state('users', {
+		url : '/users',
+		templateUrl : '/views/users.html',
+		data:{
+			requireLogin: true
+		}
+		//controller : 'PostsCtrl'
+	}).state('about', {
+		url : '/about',
+		templateUrl : '/views/about.html',
+		controller : 'MessageCtrl',
+		data:{
+			requireLogin: false
+		}
+		//controller : 'PostsCtrl'
+	}).state('login', {
+		url : '/login',
+		templateUrl : '/views/login.html',
+		controller : 'AuthCtrl',
+		onEnter : [ '$state', 'authService', function($state, authService) {
+			if (authService.isLoggedIn()) {
+				$state.go('home');
+			}
+		} ],
+		data:{
+			requireLogin: false
+		}
+	})

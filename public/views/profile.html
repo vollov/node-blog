@@ -1,0 +1,37 @@
+<div class="page-header">
+	<h3>profile -- listing messages here</h3>
+</div>
+
+
+<div>
+	<table class="table table-condensed table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Full Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>AC</th>
+				<th>furnance</th>
+				<th>other</th>
+				<th>Processed</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-class-even="'even'" ng-class='{selected: $index==selectedRow}'  ng-click="selectMessage($index)"  ng-repeat="m in messages | orderBy:'create_date'">
+				<td>{{m.create_date | date:'yyyy-MM-dd (HH)'}}</td>
+				<td><a href="#/message/{{m._id}}">{{m.name}}</a></td>
+				<td>{{m.email}}</td>
+				<td>{{m.phone}}</td>
+				<td>{{m.ac | yesNo}}</td>
+				<td>{{m.furnance | yesNo }}</td>
+				<td>{{m.other | yesNo }}</td>
+				<td>{{m.processed | yesNo }}</td>
+				<td><a class="btn btn-primary" ng-click="markProcessed(m)" ng-class="{disabled: m.processed}">Mark Processed</a></td>
+				<td><a class="btn btn-primary" ng-click="deleteMessage(m, $index)" ng-class="{disabled: index < 0}">delete</a></td>
+			<tr>
+		</tbody>
+	</table>
+</div>
