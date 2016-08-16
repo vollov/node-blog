@@ -106,30 +106,13 @@ router.post('/:id/subjects/:rid', function(req, res, next) {
 	
 	// insert subject into role.subjects
 	promise.then(function(role){
-		//role.subjects.
+		role.subjects.push(current_subject);
+		role.save();
 		//current_role= role;
 	}).catch(function(err){
 		// just need one of these
 		console.log('error:', err);
 	});
-	
-	
-	Subject.findById()
-	
-//	var role = new Role(req.body);
-//	comment.post = req.post;
-//	comment.author = req.payload.username;
-//
-//	comment.save(function(err, comment){
-//		if(err)	return next(err);
-//
-//		req.post.comments.push(comment);
-//		req.post.save(function(err, post) {
-//			if(err){ return next(err); }
-//
-//			res.json(comment);
-//		});
-//	});
 });
 
 module.exports = router;
