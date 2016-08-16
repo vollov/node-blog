@@ -1,0 +1,3 @@
+https://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
+
+http://www.angularjs4u.com/demos/10-angularjs-crud-app-demos/
