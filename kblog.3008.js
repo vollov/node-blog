@@ -1,7 +1,7 @@
 // =======================
 // package import
 // =======================
-var express     = require('express');
+var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
@@ -14,16 +14,9 @@ var app = express();
 var mongoose = require('mongoose');
 var cfg = require('./config');
 
-require('./models/Users');
-require('./models/Comments');
-require('./models/Posts');
-
-//=======================
-//routes 
-//=======================
-
-var posts = require('./routes/posts');
-var auth = require('./routes/auth');
+require('./models/Auth');
+//require('./models/Comments');
+//require('./models/Posts');
 
 console.log('root dir =' + cfg.app.app_root);
 //connect MongoDB
@@ -35,22 +28,29 @@ mongoose.connect('mongodb://localhost/'+ cfg.db.name, function(err,db){
     }
 });
 
-
-// =======================
-// configuration
-// =======================
+// ==========================
+// web server configuration
+// ==========================
 app.use(bodyParser.urlencoded({ extended: false, limit: '1mb' }));
 app.use(bodyParser.json({ limit: '1mb' }));
 
 app.use(cookieParser());
-app.use(favicon(__dirname + '/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
 //app.use(passport.initialize());
 
-app.use(cfg.app.api_url, auth);
-app.use(cfg.app.api_url + '/posts', posts);
+// ==========================
+// routing
+// ==========================
+//var posts = require('./routes/posts');
+//var auth = require('./routes/auth');
+var roles = require('./routes/roles');
 
-app.use(midware.authorization);
+app.use(cfg.app.api_url + '/role', roles);
+//app.use(cfg.app.api_url, auth);
+//app.use(cfg.app.api_url + '/posts', posts);
+
+//app.use(midware.authorization);
 
 app.get('*', function(req,res){
 	res.sendfile('index.html', { root: path.resolve(__dirname + '/public') });
